@@ -13,7 +13,7 @@ function Header() {
   );
 }
 
-function ScoreBoard() {
+function ScoreBoard({ x, o, draw }) {
   return (
     <div className="scoreboard">
       <div className="score-card" id="score-x">
@@ -22,7 +22,7 @@ function ScoreBoard() {
         </span>
         <span className="score-label">Pemain X</span>
         <span className="score-num x" id="score-x-num">
-          0
+          {x}
         </span>
       </div>
       <div className="score-card draw">
@@ -31,7 +31,7 @@ function ScoreBoard() {
         </span>
         <span className="score-label">Seri</span>
         <span className="score-num " id="score-draw-num">
-          0
+          {draw}
         </span>
       </div>
       <div className="score-card" id="score-o">
@@ -40,7 +40,7 @@ function ScoreBoard() {
         </span>
         <span className="score-label">Pemain O</span>
         <span className="score-num o" id="score-o-num">
-          0
+          {o}
         </span>
       </div>
     </div>
@@ -63,11 +63,24 @@ function Squares({ value, onSquareClick }) {
 function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
+  const [xScore, setXScore] = useState(0);
+  const [oScore, setOScore] = useState(0);
+  const [drawScore, setDrawScore] = useState(0);
 
   function handleClick(index) {
     if (squares[index] || calculateWinner(squares)) return;
+    //Duplikat Array
     const nextSquares = squares.slice();
     nextSquares[index] = xIsNext ? "X" : "O";
+
+    //Hitung Score Winner
+    const nextWinner = calculateWinner(nextSquares);
+    if (nextWinner === "X") setXScore(xScore + 1);
+    if (nextWinner === "O") setOScore(oScore + 1);
+
+    //Handling Draw
+    const isFull = nextSquares.every((item) => item !== null);
+    if (isFull && !nextWinner) setDrawScore(drawScore + 1);
 
     setSquares(nextSquares);
     setXIsNext(!xIsNext);
@@ -84,7 +97,7 @@ function Board() {
     //Variabel Check NUll
     const isFull = squares.every((item) => item !== null);
 
-    if (isFull && !winner)
+    if (isFull && !winner) {
       return (
         <div className="popup-overlay show" id="popup-draw">
           <div className="popup-card draw">
@@ -104,12 +117,13 @@ function Board() {
           </div>
         </div>
       );
+    }
 
     return false;
   };
 
   const winnerPopUp = () => {
-    if (winner === "X")
+    if (winner === "X") {
       return (
         <div className="popup-overlay show" id="popup-x">
           <div className="popup-card x">
@@ -129,8 +143,9 @@ function Board() {
           </div>
         </div>
       );
+    }
 
-    if (winner === "O")
+    if (winner === "O") {
       return (
         <div className="popup-overlay show" id="popup-o">
           <div className="popup-card o">
@@ -150,10 +165,13 @@ function Board() {
           </div>
         </div>
       );
+    }
+
     return false;
   };
   return (
     <>
+      <ScoreBoard x={xScore} o={oScore} draw={drawScore} />
       <div className="status-bar">
         <span className={`status-text ${xIsNext ? "x" : "o"}`} id="status-text">
           {xIsNext ? "Giliran Pemain X" : "Giliran Pemain O"}
@@ -183,7 +201,6 @@ export default function App() {
   return (
     <div className="wrapper">
       <Header />
-      <ScoreBoard />
       <Board />
     </div>
   );
