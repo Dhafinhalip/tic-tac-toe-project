@@ -92,7 +92,11 @@ function Board() {
             </div>
             <h2 className="popup-title">Seri!</h2>
             <p className="popup-sub">Tidak ada yang menang kali ini.</p>
-            <button className="popup-btn draw" id="popup-btn-draw">
+            <button
+              className="popup-btn draw"
+              id="popup-btn-draw"
+              onClick={playAgain}
+            >
               <i className="fa-solid fa-arrow-rotate-left"></i>
               Main Lagi
             </button>
@@ -134,7 +138,11 @@ function Board() {
             </div>
             <h2 className="popup-title">Pemain O Menang!</h2>
             <p className="popup-sub">Selamat, O berhasil mengalahkan lawan!</p>
-            <button className="popup-btn o" id="popup-btn-o">
+            <button
+              className="popup-btn o"
+              id="popup-btn-o"
+              onClick={playAgain}
+            >
               <i className="fa-solid fa-arrow-rotate-left"></i>
               Main Lagi
             </button>
