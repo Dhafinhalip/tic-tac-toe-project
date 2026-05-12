@@ -1,11 +1,12 @@
 import { useState } from "react";
 import "./index.css";
+import "./popup.css";
 
 function Header() {
   return (
     <header className="header">
       <h1 className="title">
-        Tic<span className="accent">·</span>Tac<span className="accent">·</span>
+        Tic<span className="accent">-</span>Tac<span className="accent">-</span>
         Toe
       </h1>
     </header>
@@ -71,7 +72,77 @@ function Board() {
     setSquares(nextSquares);
     setXIsNext(!xIsNext);
   }
-  // const winner = calculateWinner(squares);
+
+  function playAgain() {
+    setSquares(Array(9).fill(null));
+  }
+
+  const winner = calculateWinner(squares);
+
+  const drawPopUp = () => {
+    //Variabel Check NUll
+    const isFull = squares.every((item) => item !== null);
+
+    if (isFull && !winner)
+      return (
+        <div className="popup-overlay show" id="popup-draw">
+          <div className="popup-card draw">
+            <div className="popup-icon draw">
+              <i className="fa-solid fa-minus"></i>
+            </div>
+            <h2 className="popup-title">Seri!</h2>
+            <p className="popup-sub">Tidak ada yang menang kali ini.</p>
+            <button className="popup-btn draw" id="popup-btn-draw">
+              <i className="fa-solid fa-arrow-rotate-left"></i>
+              Main Lagi
+            </button>
+          </div>
+        </div>
+      );
+
+    return false;
+  };
+
+  const winnerPopUp = () => {
+    if (winner === "X")
+      return (
+        <div className="popup-overlay show" id="popup-x">
+          <div className="popup-card x">
+            <div className="popup-icon x">
+              <i className="fa-solid fa-x"></i>
+            </div>
+            <h2 className="popup-title">Pemain X Menang!</h2>
+            <p className="popup-sub">Selamat, X berhasil mengalahkan lawan!</p>
+            <button
+              className="popup-btn x"
+              id="popup-btn-x"
+              onClick={playAgain}
+            >
+              <i className="fa-solid fa-arrow-rotate-left"></i>
+              Main Lagi
+            </button>
+          </div>
+        </div>
+      );
+
+    if (winner === "O")
+      return (
+        <div className="popup-overlay show" id="popup-o">
+          <div className="popup-card o">
+            <div className="popup-icon o">
+              <i className="fa-regular fa-circle"></i>
+            </div>
+            <h2 className="popup-title">Pemain O Menang!</h2>
+            <p className="popup-sub">Selamat, O berhasil mengalahkan lawan!</p>
+            <button className="popup-btn o" id="popup-btn-o">
+              <i className="fa-solid fa-arrow-rotate-left"></i>
+              Main Lagi
+            </button>
+          </div>
+        </div>
+      );
+    return false;
+  };
   return (
     <>
       <div className="status-bar">
@@ -79,6 +150,7 @@ function Board() {
           {xIsNext ? "Giliran Pemain X" : "Giliran Pemain O"}
         </span>
       </div>
+      {winner ? winnerPopUp() : drawPopUp()}
       <div className="board" id="board">
         {squares.map((item, index) => {
           return (
@@ -90,6 +162,10 @@ function Board() {
           );
         })}
       </div>
+      <button className="btn-reset" id="btn-reset" onClick={playAgain}>
+        <i class="fa-solid fa-arrow-rotate-left"></i>
+        Main Lagi
+      </button>
     </>
   );
 }
@@ -100,10 +176,6 @@ export default function App() {
       <Header />
       <ScoreBoard />
       <Board />
-      <button className="btn-reset" id="btn-reset">
-        <i class="fa-solid fa-arrow-rotate-left"></i>
-        Main Lagi
-      </button>
     </div>
   );
 }

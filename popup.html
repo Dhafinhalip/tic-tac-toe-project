@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700;800;900&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <div class="popup-overlay" id="popup-x">
+      <div class="popup-card x">
+        <div class="popup-icon x">
+          <i class="fa-solid fa-x"></i>
+        </div>
+        <h2 class="popup-title">Pemain X Menang!</h2>
+        <p class="popup-sub">Selamat, X berhasil mengalahkan lawan!</p>
+        <button class="popup-btn x" id="popup-btn-x">
+          <i class="fa-solid fa-arrow-rotate-left"></i>
+          Main Lagi
+        </button>
+      </div>
+    </div>
+    <div class="popup-overlay" id="popup-o">
+      <div class="popup-card o">
+        <div class="popup-icon o">
+          <i class="fa-regular fa-circle"></i>
+        </div>
+        <h2 class="popup-title">Pemain O Menang!</h2>
+        <p class="popup-sub">Selamat, O berhasil mengalahkan lawan!</p>
+        <button class="popup-btn o" id="popup-btn-o">
+          <i class="fa-solid fa-arrow-rotate-left"></i>
+          Main Lagi
+        </button>
+      </div>
+    </div>
+
+    <!-- ========== POPUP SERI ========== -->
+    <div class="popup-overlay" id="popup-draw">
+      <div class="popup-card draw">
+        <div class="popup-icon draw">
+          <i class="fa-solid fa-minus"></i>
+        </div>
+        <h2 class="popup-title">Seri!</h2>
+        <p class="popup-sub">Tidak ada yang menang kali ini.</p>
+        <button class="popup-btn draw" id="popup-btn-draw">
+          <i class="fa-solid fa-arrow-rotate-left"></i>
+          Main Lagi
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
