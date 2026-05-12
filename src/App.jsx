@@ -75,6 +75,7 @@ function Board() {
 
   function playAgain() {
     setSquares(Array(9).fill(null));
+    setXIsNext(true);
   }
 
   const winner = calculateWinner(squares);
